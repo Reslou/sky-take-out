@@ -24,6 +24,9 @@ import org.springframework.util.DigestUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * The type Employee service.
+ */
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
@@ -32,8 +35,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * 员工登录
      *
-     * @param employeeLoginDTO
-     * @return
+     * @param employeeLoginDTO the employee login dto
+     * @return employee employee
      */
     public Employee login(EmployeeLoginDTO employeeLoginDTO) {
         String username = employeeLoginDTO.getUsername();
@@ -63,7 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * 新增员工
      *
-     * @param employeeDTO
+     * @param employeeDTO the employee dto
      */
     public void save(EmployeeDTO employeeDTO) {
         //将DTO封装到实体类
@@ -83,8 +86,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * 分页查询
      *
-     * @param employeePageQueryDTO
-     * @return
+     * @param employeePageQueryDTO the employee page query dto
+     * @return page result
      */
     public PageResult page(EmployeePageQueryDTO employeePageQueryDTO) {
         PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
@@ -97,12 +100,39 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * 启用禁用员工账号
      *
-     * @param id
-     * @param status
+     * @param id     the id
+     * @param status the status
      */
     @Override
     public void startOrStop(long id, Integer status) {
         Employee employee = Employee.builder().id(id).status(status).build();
+        employeeMapper.update(employee);
+    }
+
+    /**
+     * 根据id查询员工
+     *
+     * @param id the id
+     * @return the by id
+     */
+    @Override
+    public Employee getById(long id) {
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("******");
+        return employee;
+    }
+
+    /**
+     * 编辑员工信息
+     *
+     * @param employeeDTO the employee dto
+     */
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
         employeeMapper.update(employee);
     }
 }
