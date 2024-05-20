@@ -18,14 +18,24 @@ public interface EmployeeService {
 
     /**
      * 员工退出
+     *
      * @param employeeDTO
      */
     void save(EmployeeDTO employeeDTO);
 
     /**
      * 分页查询
+     *
      * @param employeePageQueryDTO
      * @return
      */
     PageResult page(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /**
+     * 启用禁用员工账号
+     *
+     * @param id
+     * @param status
+     */
+    void startOrStop(long id, Integer status);
 }

@@ -28,6 +28,7 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
+
     /**
      * 员工登录
      *
@@ -58,11 +59,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         //3、返回实体对象
         return employee;
     }
+
     /**
      * 新增员工
+     *
      * @param employeeDTO
      */
-    public void save( EmployeeDTO employeeDTO ) {
+    public void save(EmployeeDTO employeeDTO) {
         //将DTO封装到实体类
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
@@ -76,16 +79,30 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(BaseContext.getCurrentId());
         employeeMapper.insert(employee);
     }
+
     /**
      * 分页查询
+     *
      * @param employeePageQueryDTO
      * @return
      */
     public PageResult page(EmployeePageQueryDTO employeePageQueryDTO) {
-        PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
-        Page<Employee> page= employeeMapper.select(employeePageQueryDTO);
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+        Page<Employee> page = employeeMapper.select(employeePageQueryDTO);
         long total = page.getTotal();
         List<Employee> records = page.getResult();
         return new PageResult(total, records);
+    }
+
+    /**
+     * 启用禁用员工账号
+     *
+     * @param id
+     * @param status
+     */
+    @Override
+    public void startOrStop(long id, Integer status) {
+        Employee employee = Employee.builder().id(id).status(status).build();
+        employeeMapper.update(employee);
     }
 }
