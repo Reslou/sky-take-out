@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 /**
- * The interface Setmeal mapper.
+ * 套餐数据访问层
  */
 @Mapper
 public interface SetmealMapper {

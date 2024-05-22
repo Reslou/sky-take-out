@@ -7,7 +7,7 @@ import com.sky.entity.Employee;
 import com.sky.result.PageResult;
 
 /**
- * The interface Employee service.
+ * 员工业务逻辑层
  */
 public interface EmployeeService {
 

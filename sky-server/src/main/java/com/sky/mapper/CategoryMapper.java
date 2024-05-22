@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
- * The interface Category mapper.
+ * 分类数据访问层
  */
 @Mapper
 public interface CategoryMapper {

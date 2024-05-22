@@ -14,10 +14,10 @@ import java.io.ByteArrayInputStream;
 @Slf4j
 public class AliOssUtil {
 
-    private String endpoint;
     private String accessKeyId;
     private String accessKeySecret;
     private String bucketName;
+    private String endpoint;
 
     /**
      * 文件上传

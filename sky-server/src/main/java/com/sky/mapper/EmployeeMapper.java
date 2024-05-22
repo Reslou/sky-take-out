@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 /**
- * The interface Employee mapper.
+ * 员工数据访问层
  */
 @Mapper
 public interface EmployeeMapper {

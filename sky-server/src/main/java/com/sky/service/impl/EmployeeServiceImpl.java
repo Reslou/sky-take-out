@@ -23,7 +23,7 @@ import org.springframework.util.DigestUtils;
 import java.util.List;
 
 /**
- * The type Employee service.
+ * 员工业务逻辑层
  */
 @Service
 public class EmployeeServiceImpl implements EmployeeService {

@@ -8,7 +8,7 @@ import com.sky.result.PageResult;
 import java.util.List;
 
 /**
- * The interface Category service.
+ * 分类业务逻辑层
  */
 public interface CategoryService {
 
