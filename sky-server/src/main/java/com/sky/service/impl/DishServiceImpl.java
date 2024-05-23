@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * 菜品业务逻辑层
+ * 菜品业务逻辑层实现类
  */
 @Service
 public class DishServiceImpl implements DishService {
@@ -37,8 +37,9 @@ public class DishServiceImpl implements DishService {
     /**
      * 新增菜品和对应的口味
      *
-     * @param dishDTO the dish dto
+     * @param dishDTO 菜品数据传输对象
      */
+    @Override
     @Transactional
     public void saveWithFlavor(DishDTO dishDTO) {
         Dish dish = new Dish();
@@ -58,8 +59,8 @@ public class DishServiceImpl implements DishService {
     /**
      * 菜品分页查询
      *
-     * @param dishPageQueryDTO the dish page query dto
-     * @return the page result
+     * @param dishPageQueryDTO 菜品分页查询数据传输对象
+     * @return 封装分页查询结果
      */
     @Override
     public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
@@ -71,14 +72,15 @@ public class DishServiceImpl implements DishService {
     /**
      * 批量删除菜品
      *
-     * @param ids the ids
+     * @param ids 菜品id集合
      */
+    @Override
     @Transactional
     public void deleteBatch(List<Long> ids) {
         //菜品是否可以删除--起售中的菜品不能删除
         for (Long id : ids) {
-            int status = dishMapper.selectById(id);
-            if (status == StatusConstant.ENABLE) {
+            Dish dish = dishMapper.getById(id);
+            if (dish.getStatus() == StatusConstant.ENABLE) {
                 throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
             }
         }
@@ -90,5 +92,46 @@ public class DishServiceImpl implements DishService {
         //菜品可以删除--删除菜品后关联的口味数据也需要删除掉
         dishMapper.deleteByIds(ids);
         dishFlavorMapper.deleteByDishIds(ids);
+    }
+
+    /**
+     * 根据id查询菜品和对应的口味
+     *
+     * @param id 菜品id
+     * @return 菜品视图对象
+     */
+    @Override
+    public DishVO getByIdWithFlavor(Long id) {
+        //1.根据id查询菜品数据
+        Dish dish = dishMapper.getById(id);
+        //2.根据菜品id查询口味数据
+        List<DishFlavor> dishFlavors = dishFlavorMapper.getById(id);
+        //3.将查询到的数据封装到VO
+        DishVO dishVO = new DishVO();
+        BeanUtils.copyProperties(dish, dishVO);
+        dishVO.setFlavors(dishFlavors);
+        return dishVO;
+    }
+
+    /**
+     * 修改菜品和对应的口味
+     *
+     * @param dishDTO 菜品传输对象
+     */
+    @Override
+    public void updateWithFlavor(DishDTO dishDTO) {
+        // 1.修改菜品表基本信息
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+        dishMapper.update(dish);
+        // 2.删除原有的口味数据
+        Long dishId = dishDTO.getId();
+        dishFlavorMapper.deleteByDishId(dishId);
+        // 3.重新插入口味数据
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if (flavors != null && !flavors.isEmpty()) {
+            flavors.forEach(dishFlavor -> dishFlavor.setDishId(dishId));
+            dishFlavorMapper.insert(flavors);
+        }
     }
 }
