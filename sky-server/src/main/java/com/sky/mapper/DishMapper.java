@@ -40,7 +40,7 @@ public interface DishMapper {
      * @param dishPageQueryDTO the dish page query dto
      * @return the page
      */
-    Page<DishVO> select(DishPageQueryDTO dishPageQueryDTO);
+    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
     /**
      * 根据id查询菜品
@@ -64,4 +64,6 @@ public interface DishMapper {
      * @param dish 菜品
      */
     void update(Dish dish);
+
+    List<Dish> list(Dish dish);
 }

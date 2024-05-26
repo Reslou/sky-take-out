@@ -13,12 +13,23 @@
             #{id}
         </foreach>
     </delete>
-    <select id="select" resultType="com.sky.vo.DishVO">
+    <select id="pageQuery" resultType="com.sky.vo.DishVO">
         select d.* ,c.name as categoryName from dish d left join category c on d.category_id = c.id
         <where>
             <if test="name != null">d.name like concat("%",#{name},"%")</if>
             <if test="categoryId != null">and category_id =#{categoryId}</if>
             <if test="status != null">and d.status =#{status}</if>
+        </where>
+        order by create_time desc
+    </select>
+    <select id="list" resultType="com.sky.entity.Dish">
+        select * from dish
+        <where>
+            <if test="name != null">name like concat("%",#{name},"%")</if>
+            <if test="categoryId != null">and category_id =#{categoryId}</if>
+            <if test="price != null">and price =#{price}</if>
+            <if test="image != null">and image =#{image}</if>
+            <if test="description != null">and description like concat("%",#{description},"%")</if>
         </where>
         order by create_time desc
     </select>

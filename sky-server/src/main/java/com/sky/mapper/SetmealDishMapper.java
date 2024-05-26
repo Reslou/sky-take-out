@@ -8,7 +8,7 @@ import java.util.List;
  * 菜品套餐数据访问层
  */
 @Mapper
-public interface SetMealDishMapper {
+public interface SetmealDishMapper {
 
     /**
      * 根据菜品id查询

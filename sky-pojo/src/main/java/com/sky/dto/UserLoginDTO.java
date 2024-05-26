@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * C端用户登录
+ * C端微信用户登录数据传输对象
  */
 @Data
 public class UserLoginDTO implements Serializable {
