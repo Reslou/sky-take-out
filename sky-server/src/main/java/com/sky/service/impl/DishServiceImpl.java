@@ -139,8 +139,8 @@ public class DishServiceImpl implements DishService {
     /**
      * 条件查询菜品和口味
      *
-     * @param dish
-     * @return
+     * @param dish 菜品
+     * @return 菜品视图对象集合
      */
     public List<DishVO> listWithFlavor(Dish dish) {
         List<Dish> dishList = dishMapper.list(dish);
@@ -159,5 +159,19 @@ public class DishServiceImpl implements DishService {
         }
 
         return dishVOList;
+    }
+
+    /**
+     * 根据分类id查询菜品
+     *
+     * @param categoryId 分类id
+     * @return 菜品集合
+     */
+    public List<Dish> list(Long categoryId) {
+        Dish dish = Dish.builder()
+                .categoryId(categoryId)
+                .status(StatusConstant.ENABLE)
+                .build();
+        return dishMapper.list(dish);
     }
 }

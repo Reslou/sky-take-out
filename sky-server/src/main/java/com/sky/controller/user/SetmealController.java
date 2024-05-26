@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
+/**
+ * 套餐控制层
+ */
 @RestController("userSetmealController")
 @RequestMapping("/user/setmeal")
 @Api(tags = "C端-套餐浏览接口")
@@ -24,8 +28,8 @@ public class SetmealController {
     /**
      * 条件查询
      *
-     * @param categoryId
-     * @return
+     * @param categoryId 分类ID
+     * @return result 套餐List
      */
     @GetMapping("/list")
     @ApiOperation("根据分类id查询套餐")
@@ -41,8 +45,8 @@ public class SetmealController {
     /**
      * 根据套餐id查询包含的菜品列表
      *
-     * @param id
-     * @return
+     * @param id 套餐id
+     * @return result 菜品列表VO
      */
     @GetMapping("/dish/{id}")
     @ApiOperation("根据套餐id查询包含的菜品列表")
