@@ -19,7 +19,7 @@ public interface SetmealDishMapper {
      * @param ids the ids
      * @return the list
      */
-    public List<Long> selectByDishId(List<Long> ids);
+    public List<Long> getSetmealIdsByDishIds(List<Long> ids);
 
     /**
      * 批量保存套餐和菜品的关联关系
