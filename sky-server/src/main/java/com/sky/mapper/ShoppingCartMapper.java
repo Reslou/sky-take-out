@@ -1,0 +1,40 @@
+package com.sky.mapper;
+
+import com.sky.entity.ShoppingCart;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
+
+/**
+ * 购物车反射层
+ */
+@Mapper
+public interface ShoppingCartMapper {
+
+    /**
+     * 动态查询购物车
+     *
+     * @param shoppingCart 购物车（菜品id，套餐id，口味）
+     * @return the list 购物车
+     */
+    List<ShoppingCart> select(ShoppingCart shoppingCart);
+
+    /**
+     * 更新购物车数量
+     *
+     * @param cart （数量，ID）
+     */
+    @Update("update shopping_cart set number = #{number} where id = #{id}")
+    void updateNumber(ShoppingCart cart);
+
+    /**
+     * 插入数据
+     *
+     * @param shoppingCart 购物车
+     */
+    @Insert("insert into shopping_cart (name, image, user_id, dish_id, setmeal_id, dish_flavor, amount, create_time) " +
+            "VALUES(#{name}, #{image}, #{userId}, #{dishId}, #{setmealId}, #{dishFlavor}, #{amount}, #{createTime}) ")
+    void insert(ShoppingCart shoppingCart);
+}
