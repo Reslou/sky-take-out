@@ -40,7 +40,7 @@ public class ShoppingCartImpl implements ShoppingCartService {
         BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
         shoppingCart.setUserId(BaseContext.getCurrentId());
         // 1.判断当前加入到购物车中的应品是否已经存在了
-        List<ShoppingCart> list = shoppingCartMapper.select(shoppingCart);
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
         // 2.如果已经存在了，只需要将数量加1
         if (list != null && !list.isEmpty()) {
             ShoppingCart cart = list.get(0);
@@ -65,5 +65,26 @@ public class ShoppingCartImpl implements ShoppingCartService {
             shoppingCart.setCreateTime(LocalDateTime.now());
             shoppingCartMapper.insert(shoppingCart);
         }
+    }
+
+    /**
+     * 查询购物车
+     *
+     * @return 购物车list
+     */
+    @Override
+    public List<ShoppingCart> list() {
+        Long userId = BaseContext.getCurrentId();
+        ShoppingCart shoppingCart = ShoppingCart.builder().userId(userId).build();
+        return shoppingCartMapper.list(shoppingCart);
+    }
+
+    /**
+     * 清空购物车
+     */
+    @Override
+    public void clean() {
+        Long userId = BaseContext.getCurrentId();
+        shoppingCartMapper.deleteByUserId(userId);
     }
 }
