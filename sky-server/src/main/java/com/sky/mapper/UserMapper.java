@@ -24,4 +24,13 @@ public interface UserMapper {
      * @param user 微信用户
      */
     void insert(User user);
+
+    /**
+     * 用用户ID查询用户表
+     *
+     * @param userId 用户ID
+     * @return 用户
+     */
+    @Select("select * from user where id = #{userId}")
+    User getById(Long userId);
 }

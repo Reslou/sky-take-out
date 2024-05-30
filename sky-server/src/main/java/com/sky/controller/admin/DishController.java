@@ -109,9 +109,9 @@ public class DishController {
     /**
      * 菜品起售停售
      *
-     * @param status
-     * @param id
-     * @return
+     * @param status 售卖状态
+     * @param id 菜品ID
+     * @return 空
      */
     @PostMapping("/status/{status}")
     @ApiOperation("菜品起售停售")
