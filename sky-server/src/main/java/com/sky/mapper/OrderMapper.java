@@ -22,7 +22,7 @@ public interface OrderMapper {
      * 用订单号查询订单表
      *
      * @param orderNumber 订单号
-     * @return 订单
+     * @return 订单 by number
      */
     @Select("select * from orders where number = #{orderNumber}")
     Orders getByNumber(String orderNumber);
@@ -46,8 +46,17 @@ public interface OrderMapper {
      * 用订单ID查询订单表
      *
      * @param id 订单ID
-     * @return 订单
+     * @return 订单 by id
      */
     @Select("select * from orders where id = #{id}")
-    Orders getByID(Long id);
+    Orders getById(Long id);
+
+
+    /**
+     * 根据状态统计订单数量
+     *
+     * @param status 订单状态
+     */
+    @Select("select count(id) from orders where status = #{status}")
+    Integer countStatus(Integer status);
 }
