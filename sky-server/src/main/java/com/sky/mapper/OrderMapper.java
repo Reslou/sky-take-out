@@ -49,7 +49,7 @@ public interface OrderMapper {
      * 用订单ID查询订单表
      *
      * @param id 订单ID
-     * @return 订单 by id
+     * @return the 订单
      */
     @Select("select * from orders where id = #{id}")
     Orders getById(Long id);
@@ -69,7 +69,7 @@ public interface OrderMapper {
      *
      * @param status    订单状态
      * @param orderTime 下单时间
-     * @return 订单list by status and order time lt
+     * @return the list 订单
      */
     @Select("select * from orders where status = #{status} and order_time < #{orderTime}")
     List<Orders> getByStatusAndOrderTimeLT(Integer status, LocalDateTime orderTime);
