@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 订单持久层
@@ -83,4 +84,12 @@ public interface OrderMapper {
      */
     @Select("select sum(amount) from orders where order_time between #{beginTime} and #{endTime} and status = 5 ")
     Double sumByTime(LocalDateTime beginTime, LocalDateTime endTime);
+
+    /**
+     * 动态统计订单数量
+     *
+     * @param map the map(开始时间,结束时间,订单状态)
+     * @return the integer 订单数量
+     */
+    Integer countByMap(Map map);
 }

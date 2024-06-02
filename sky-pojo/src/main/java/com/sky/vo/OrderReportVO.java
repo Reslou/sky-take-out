@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * 统计订单VO
+ * 订单统计数据
  */
 @Data
 @Builder
