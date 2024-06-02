@@ -59,7 +59,7 @@ public interface OrderMapper {
      * 根据状态统计订单数量
      *
      * @param status 订单状态
-     * @return the integer
+     * @return the integer 订单数量
      */
     @Select("select count(id) from orders where status = #{status}")
     Integer countStatus(Integer status);
@@ -69,8 +69,18 @@ public interface OrderMapper {
      *
      * @param status    订单状态
      * @param orderTime 下单时间
-     * @return 订单list
+     * @return 订单list by status and order time lt
      */
     @Select("select * from orders where status = #{status} and order_time < #{orderTime}")
     List<Orders> getByStatusAndOrderTimeLT(Integer status, LocalDateTime orderTime);
+
+    /**
+     * 计算时间段内已完成订单的金额之和
+     *
+     * @param beginTime 开始时间
+     * @param endTime   结束时间
+     * @return the double 金额之和
+     */
+    @Select("select sum(amount) from orders where order_time between #{beginTime} and #{endTime} and status = 5 ")
+    Double sumByTime(LocalDateTime beginTime, LocalDateTime endTime);
 }

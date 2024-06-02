@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 订单业务逻辑层
+ * 订单服务层
  */
 @Service
 @Slf4j
@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
      * 提交订单
      *
      * @param ordersSubmitDTO 提交订单DTO
-     * @return 提交订单VO
+     * @return order submit vo 提交订单VO
      */
     @Transactional
     public OrderSubmitVO submit(OrdersSubmitDTO ordersSubmitDTO) {
@@ -116,7 +116,8 @@ public class OrderServiceImpl implements OrderService {
      * 订单支付
      *
      * @param ordersPaymentDTO 订单支付DTO
-     * @return 订单支付VO
+     * @return order payment vo 订单支付VO
+     * @throws Exception the exception
      */
     public OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception {
         // 当前登录用户id
@@ -202,9 +203,9 @@ public class OrderServiceImpl implements OrderService {
      * 查询订单详情
      *
      * @param id 订单ID
-     * @return 订单VO
+     * @return order detail 订单VO
      */
-    public OrderVO orderDetail(Long id) {
+    public OrderVO getOrderDetail(Long id) {
         Orders orders = orderMapper.getById(id);
         Long orderId = orders.getId();
         List<OrderDetail> orderDetailList = orderDetailMapper.getByOrderId(orderId);
@@ -284,7 +285,7 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 各个状态的订单数量统计
      *
-     * @return 统计订单状态VO
+     * @return order statistics vo 统计订单状态VO
      */
     public OrderStatisticsVO statistics() {
         // 根据状态，分别查询出待接单、待派送、派送中的订单数量
@@ -316,6 +317,7 @@ public class OrderServiceImpl implements OrderService {
      * 拒单
      *
      * @param ordersRejectionDTO 拒单DTO
+     * @throws Exception the exception
      */
     public void rejection(OrdersRejectionDTO ordersRejectionDTO) throws Exception {
         // 根据id查询订单
@@ -352,7 +354,8 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 取消订单
      *
-     * @param ordersCancelDTO
+     * @param ordersCancelDTO 取消订单DTO
+     * @throws Exception the exception
      */
     public void cancel(OrdersCancelDTO ordersCancelDTO) throws Exception {
         // 根据id查询订单
@@ -382,7 +385,7 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 派送订单
      *
-     * @param id
+     * @param id 订单ID
      */
     public void delivery(Long id) {
         // 根据id查询订单
@@ -404,7 +407,7 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 完成订单
      *
-     * @param id
+     * @param id 订单ID
      */
     public void complete(Long id) {
         // 根据id查询订单

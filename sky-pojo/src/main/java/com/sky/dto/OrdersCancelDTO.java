@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * 取消订单DTO
+ */
 @Data
 public class OrdersCancelDTO implements Serializable {
 

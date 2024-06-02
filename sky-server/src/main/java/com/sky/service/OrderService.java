@@ -15,7 +15,7 @@ public interface OrderService {
      * 提交订单
      *
      * @param ordersSubmitDTO 提交订单DTO
-     * @return 提交订单VO order submit vo
+     * @return order submit vo 提交订单VO
      */
     OrderSubmitVO submit(OrdersSubmitDTO ordersSubmitDTO);
 
@@ -23,7 +23,7 @@ public interface OrderService {
      * 订单支付
      *
      * @param ordersPaymentDTO 订单支付DTO
-     * @return 订单支付VO order payment vo
+     * @return order payment vo 订单支付VO
      * @throws Exception the exception
      */
     OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception;
@@ -47,9 +47,9 @@ public interface OrderService {
      * 查询订单详情
      *
      * @param id 订单ID
-     * @return 订单VO
+     * @return 订单VO order detail
      */
-    OrderVO orderDetail(Long id);
+    OrderVO getOrderDetail(Long id);
 
     /**
      * 取消订单
@@ -76,7 +76,7 @@ public interface OrderService {
     /**
      * 各个状态的订单数量统计
      *
-     * @return 统计订单状态VO
+     * @return order statistics vo 统计订单状态VO
      */
     OrderStatisticsVO statistics();
 
@@ -91,27 +91,29 @@ public interface OrderService {
      * 拒单
      *
      * @param ordersRejectionDTO 拒单DTO
+     * @throws Exception the exception
      */
     void rejection(OrdersRejectionDTO ordersRejectionDTO) throws Exception;
 
     /**
      * 商家取消订单
      *
-     * @param ordersCancelDTO
+     * @param ordersCancelDTO 取消订单DTO
+     * @throws Exception the exception
      */
     void cancel(OrdersCancelDTO ordersCancelDTO) throws Exception;
 
     /**
      * 派送订单
      *
-     * @param id
+     * @param id 订单ID
      */
     void delivery(Long id);
 
     /**
      * 完成订单
      *
-     * @param id
+     * @param id 订单ID
      */
     void complete(Long id);
 
