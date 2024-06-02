@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * 商品销量DTO
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * 销量排名top10
+ */
 @Data
 @Builder
 @NoArgsConstructor
