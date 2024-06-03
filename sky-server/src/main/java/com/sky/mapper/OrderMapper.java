@@ -79,12 +79,10 @@ public interface OrderMapper {
     /**
      * 计算时间段内已完成订单的金额之和
      *
-     * @param beginTime 开始时间
-     * @param endTime   结束时间
+     * @param map the map(开始时间,结束时间,订单状态)
      * @return the double 金额之和
      */
-    @Select("select sum(amount) from orders where order_time between #{beginTime} and #{endTime} and status = 5 ")
-    Double sumByTime(LocalDateTime beginTime, LocalDateTime endTime);
+    Double sumByMap(Map map);
 
     /**
      * 动态统计订单数量

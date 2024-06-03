@@ -45,7 +45,10 @@ public class ReportServiceImpl implements ReportService {
         for (LocalDate localDate : dateList) {
             LocalDateTime beginTime = LocalDateTime.of(localDate, LocalTime.MIN);
             LocalDateTime endTime = LocalDateTime.of(localDate, LocalTime.MAX);
-            Double turnover = orderMapper.sumByTime(beginTime, endTime);
+            Map map = new HashMap();
+            map.put("begin", beginTime);
+            map.put("end", endTime);
+            Double turnover = orderMapper.sumByMap(map);
             turnover = turnover == null ? 0.0 : turnover;
             turnoverList.add(turnover);
         }
